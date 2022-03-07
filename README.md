@@ -19,15 +19,51 @@ const [state, setState] = useState(() => {
   return initialState;
 });
 initialState 参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。
-如果初始 state 需要通过复杂计算获得，则可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用
+可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用
 ```	
 ##### useEffect
 ```
 componentDidMount/componentDidUpdate/componentWillUnmount
-useEffect(()=>{},[])  			= componentDidMount
-useEffect(()=>{})	  		= componentDidMount + componentDidUpdate
-useEffect(()=>{return ()=>{}},[])	= componentWillUnmount
-useEffect(()=>{},[params])  		仅在params更改时更新，如果数组中有多个元素，即使只有一个元素发生变化，React 也会执行 effect
+    
+    componentDidMount + componentDidUpdate
+    useEffect(() => {
+        console.warn('useEffect' + config);
+    });
+    
+    componentDidMount + componentDidUpdate + componentWillUnmount
+    useEffect(() => {
+        console.warn('useEffect' + config);
+        return () => {
+            console.warn('useEffectX' + config);
+        };
+    });
+  
+  
+    componentDidMount
+    useEffect(() => {
+        console.warn('useEffect' + config);
+    }, []);
+    
+    componentDidMount + componentWillUnmount
+    useEffect(() => {
+        console.warn('useEffect' + config);
+        return () => {
+            console.warn('useEffectX' + config);
+        };
+    }, []);
+
+    componentDidMount一次 + 每次config改变时调用
+    useEffect(() => {
+        console.warn('useEffect' + config);
+    }, [config]);
+    
+    componentDidMount + componentWillUnmount + 每次config改变时调用
+    useEffect(() => {
+        console.warn('useEffect' + config);
+        return () => {
+            console.warn('useEffectX' + config);
+        };
+    }, [config]);
 ```
 ##### useRef
 ```
