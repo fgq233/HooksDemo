@@ -11,8 +11,8 @@
 #### 1、react原生
 ##### useState
 ```		
-const [config, setConfig] = useState(0);			setConfig(3)
-const [config, setConfig] = useState({value: ''});		setConfig({value: 'X'})
+const [state, setState] = useState(0);			setState(3)
+const [state, setState] = useState({value: ''});	setState({value: 'X'})
 ```	
 ##### useEffect
 ```
